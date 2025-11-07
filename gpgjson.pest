@@ -1,0 +1,59 @@
+keyrings = { SOI ~ keyring+ ~ EOI }
+
+keyring = {
+    path ~ NEWLINE ~ key*
+}
+
+path = { ("/" | "\\") ~ (!NEWLINE ~ ANY)+ ~ NEWLINE ~ "-"+ }
+
+key = { pub_line ~ NEWLINE ~ space+ ~ (fingerprint | id){0, 1} ~ NEWLINE ~ uid ~ NEWLINE* ~ (sub_key ~ NEWLINE*)* }
+
+pub_line = { "pub" ~ space+ ~ key_type ~ space+ ~ created ~ space+ ~ capabilities ~ space* ~ expires{0, 1} }
+
+space = _{ " " | "\t" }
+
+key_type = { key_types }
+
+key_types = _{
+    "rsa" ~ ("1024" | "2048" | "3072" | "4096")
+  | "dsa" ~ ("1024" | "2048" | "3072")
+  | "elg" ~ ("2048" | "3072")
+  | "ed25519"
+  | "cv25519"
+  | "ecdsa" ~ ("256" | "384" | "521")
+  | "ecdh" ~ ("256" | "384" | "521")
+}
+
+created = { date }
+
+date = _{ ASCII_DIGIT{4} ~ "-" ~ ASCII_DIGIT{2} ~ "-" ~ ASCII_DIGIT{2} }
+
+capabilities = { "[" ~ capability+ ~ "]" }
+
+capability = _{ "S" | "C" | "E" | "A" }
+
+expires = { "[expires:" ~ space+ ~ date ~ "]" }
+
+id = { ASCII_HEX_DIGIT{40} }
+
+fingerprint = { (ASCII_HEX_DIGIT{4} ~ space+){9} ~ ASCII_HEX_DIGIT{4} }
+
+uid = {
+    "uid" ~ space+ ~ "[" ~ space* ~ trust_level ~ space* ~ "]" ~ space+ ~ real_name ~ space* ~ email*
+}
+
+trust_level = {
+    "unknown"
+  | "none"
+  | "marginal"
+  | "full"
+  | "ultimate"
+}
+
+real_name = { (!("<" | NEWLINE) ~ ANY)+ }
+
+email = {
+    "<" ~ (!("@" | "<" | ">" | NEWLINE) ~ ANY)+ ~ "@" ~ (!("<" | ">" | NEWLINE) ~ ANY)+ ~ ">"
+}
+
+sub_key = { "sub" ~ space+ ~ key_type ~ space+ ~ created ~ space+ ~ capabilities ~ space* ~ expires{0, 1} }

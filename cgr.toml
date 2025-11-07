@@ -1,0 +1,18 @@
+name = "achianumba/gpgjson"
+description = "Convert `gpg --list-keys` output to JSON for use in DevOps and other workflows."
+
+[[license]]
+id = "MIT"
+owner = "Arinze Chianumba"
+
+[devcontainer]
+image = "rust"
+tag = "latest"
+
+[devcontainer.user]
+sudo = true
+
+[readme]
+partials = [
+  "intro.md"
+]
