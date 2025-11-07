@@ -11,7 +11,7 @@
     "memory": "8gb",
     "storage": "32gb"
   },
-  "name": "achianumba-gpgjson",
+  "name": "achianumba-jgpg",
   "portsAttributes": {
   },
   // Redundancy to prevent command failure when generated on Windows

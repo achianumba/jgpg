@@ -1,7 +1,19 @@
 [package]
-name = "gpgjson"
+name = "jgpg"
 version = "0.1.0"
 edition = "2024"
+readme = "README.md"
+repository = "https://github.com/achianumba/jgpg"
+license-file = "LICENSE"
+
+keywords = [
+  "jgpg",
+  "jgpgson",
+  "gpg2json",
+  "gpglist2json"
+]
+
+categories = [ "command-line-utilities" ]
 
 [dependencies]
 pest = "2.8.3"

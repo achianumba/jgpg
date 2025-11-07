@@ -5,7 +5,7 @@ use pest_derive::Parser;
 use serde::{Deserialize, Serialize};
 
 #[derive(Parser)]
-#[grammar = "gpgjson.pest"]
+#[grammar = "jgpg.pest"]
 pub struct GpgKeyListParser;
 
 #[derive(Debug, Serialize, Deserialize)]
