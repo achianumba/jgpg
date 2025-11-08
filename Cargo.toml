@@ -6,6 +6,7 @@ authors = ["Arinze Chianumba"]
 readme = "README.md"
 repository = "https://github.com/achianumba/jgpg"
 license-file = "LICENSE"
+description = "A Rust binary and library for converting gpg --list-keys (apt-key list etc.) output to JSON in DevOps, CI/CD pipelines."
 
 keywords = [
   "jgpg",
