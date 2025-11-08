@@ -35,7 +35,7 @@ jobs:
           # Run `release-plz release` command.
           command: release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          PAT: ${{ secrets.GH_TOKEN }}
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
 
   # Create a PR with the new versions and changelog, preparing the next release.
@@ -70,6 +70,6 @@ jobs:
           # Run `release-plz release-pr` command.
           command: release-pr
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          PAT: ${{ secrets.GH_TOKEN }}
           # In `release-plz-pr` this is only required if you are using a private registry.
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
