@@ -11,7 +11,7 @@ jobs:
   # and you want to handle `cargo publish` and git tag push by yourself,
   # remove this job.
   release-plz-release:
-    if: ${{ github.repository_owner == 'achianumba' }}
+    if: ${{ github.repository_owner == 'achianumba' && github.ref == 'refs/heads/main' }}
     name: Release-plz release
     runs-on: ubuntu-latest
     # Used to push tags, and create releases.
@@ -24,7 +24,7 @@ jobs:
           # `fetch-depth: 0` is needed to clone all the git history, which is necessary to
           # release from the latest commit of the release PR.
           fetch-depth: 0
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.PAT }}
       # Use your favorite way to install the Rust toolchain.
       # The action I'm using here is a popular choice.
       - name: Install Rust toolchain
@@ -35,7 +35,7 @@ jobs:
           # Run `release-plz release` command.
           command: release
         env:
-          PAT: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
 
   # Create a PR with the new versions and changelog, preparing the next release.
@@ -70,6 +70,6 @@ jobs:
           # Run `release-plz release-pr` command.
           command: release-pr
         env:
-          PAT: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
           # In `release-plz-pr` this is only required if you are using a private registry.
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
